@@ -3,8 +3,8 @@
     {
       "id": "work-1795400298524-8f294",
       "title": "shark стикеры",
-      "description": "",
-      "category": "art",
+      "description": "https://t.me/addstickers/NSh4rkPrime",
+      "category": "sticker",
       "image": "assets/portfolio/1795400296467-8fb3e67e.webp",
       "published": true
     },
@@ -120,19 +120,19 @@
       "id": "waist",
       "name": "Персонаж по пояс",
       "price": 1550,
-      "image": "assets/portfolio/1795398830273-2496c183.webp"
+      "image": "assets/portfolio/1795400580466-1b7a5ac0.webp"
     },
     {
       "id": "full",
       "name": "Персонаж в полный рост",
       "price": 2500,
-      "image": "assets/portfolio/1795399837519-49f907a9.webp"
+      "image": "assets/portfolio/1795400523287-5452655.webp"
     },
     {
       "id": "design",
       "name": "Дизайн персонажа",
       "price": 3000,
-      "image": "assets/portfolio/1795398957722-4828e82c.webp"
+      "image": "assets/portfolio/1795400535132-ea8c9d2f.webp"
     },
     {
       "id": "scene",
