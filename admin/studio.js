@@ -43,7 +43,79 @@ $('workFile').addEventListener('change',()=>{const f=$('workFile').files?.[0];if
 async function compressImage(file){const bitmap=await createImageBitmap(file);const max=1600,scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height));const width=Math.round(bitmap.width*scale),height=Math.round(bitmap.height*scale);if(width*height>12000000)throw Error('Изображение слишком большое');const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;canvas.getContext('2d').drawImage(bitmap,0,0,width,height);bitmap.close();let blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.82));if(!blob)throw Error('Браузер не умеет сжимать WebP');if(blob.size>1.8*1024*1024)blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.68));if(!blob||blob.size>1.9*1024*1024)throw Error('Слишком большой файл после сжатия. Попробуй изображение поменьше');return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(Error('Ошибка чтения изображения'));reader.readAsDataURL(blob)})}
 async function uploadImage(file){const base64=await compressImage(file);if(mode==='worker'){const r=await request('image','POST',{name:file.name,mime:'image/webp',content:base64});return r.path}const path='assets/portfolio/'+Date.now()+'-'+crypto.getRandomValues(new Uint32Array(1))[0].toString(16)+'.webp';await request('contents/'+path,'PUT',{message:'Cozy Studio: добавить иллюстрацию',content:base64,branch:BRANCH});return path}
 $('workForm').addEventListener('submit',async e=>{e.preventDefault();if(busy)return;const title=$('workTitle').value.trim();if(!title){toast('Укажи название работы',true);return}if(editedWork<0&&!chosenFile){toast('Выбери изображение работы',true);return}const old=editedWork>=0?site.portfolio[editedWork]:null;let imagePath=old?.image||'';const button=e.submitter||$('workForm').querySelector('[type=submit]');button.disabled=true;const original=button.textContent;button.textContent=chosenFile?'Загружаю изображение…':'Сохраняю…';try{if(chosenFile){imagePath=await uploadImage(chosenFile)}const obj={id:old?.id||'work-'+Date.now()+'-'+Math.random().toString(16).slice(2,7),title,description:$('workDescription').value.trim(),category:$('workCategory').value,image:imagePath,published:$('workPublished').checked};if(editedWork<0)site.portfolio.unshift(obj);else site.portfolio[editedWork]=obj;closeEditor();setDirty();renderAll();toast('Работа подготовлена. Нажми «Сохранить на GitHub» для публикации.')}catch(error){toast(error.message,true)}finally{button.disabled=false;button.textContent=original}});
-function renderPrices(){if(!site)return;$('priceList').innerHTML=site.prices.map((p,i)=>`<div class="price-row"><div><strong>${escapeHTML(p.name)}</strong><small>ID: ${escapeHTML(p.id)}</small></div><label>Цена от, ₽<input aria-label="Цена: ${escapeHTML(p.name)}" data-price="${i}" min="0" max="1000000" step="50" type="number" value="${Number(p.price)||0}"></label></div>`).join('');$('priceList').querySelectorAll('[data-price]').forEach(input=>input.addEventListener('input',()=>{const raw=Number(input.value);if(!Number.isFinite(raw)||raw<0||raw>1000000){input.setCustomValidity('Цена должна быть от 0 до 1 000 000');return}input.setCustomValidity('');site.prices[+input.dataset.price].price=raw;setDirty()}))}
+function renderPrices(){
+ if(!site)return;
+ const holder=$('priceList');
+ holder.innerHTML=site.prices.map((p,i)=>{
+   const havePicture=validImagePath(p.image);
+   const picture=havePicture
+     ? `<img loading="lazy" src="${escapeHTML(imageSrc(p.image))}" alt="Пример: ${escapeHTML(p.name)}">`
+     : `<span class="price-thumb-empty">Место для<br>примера</span>`;
+   return `<div class="price-row">
+     <div class="price-thumb">${picture}</div>
+     <div class="price-main">
+       <strong>${escapeHTML(p.name)}</strong>
+       <small>ID: ${escapeHTML(p.id)}</small>
+       <div class="price-media-actions">
+         <label class="price-file-label" for="price-file-${i}">${havePicture?'Заменить картинку':'Загрузить картинку'} ↥</label>
+         <input id="price-file-${i}" data-price-file="${i}" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+         ${havePicture?`<button type="button" data-price-remove="${i}" class="price-remove-image">Удалить</button>`:''}
+       </div>
+       <small class="price-image-hint">PNG, JPG или WebP · до 15 МБ</small>
+     </div>
+     <label class="price-cost">Цена от, ₽<input aria-label="Цена: ${escapeHTML(p.name)}" data-price="${i}" min="0" max="1000000" step="50" type="number" value="${Number(p.price)||0}"></label>
+   </div>`;
+ }).join('');
+ holder.querySelectorAll('[data-price]').forEach(input=>input.addEventListener('input',()=>{
+   const raw=Number(input.value);
+   if(!Number.isFinite(raw)||raw<0||raw>1000000){
+     input.setCustomValidity('Цена должна быть от 0 до 1 000 000');return;
+   }
+   input.setCustomValidity('');
+   site.prices[+input.dataset.price].price=raw;
+   setDirty();
+ }));
+ holder.querySelectorAll('[data-price-file]').forEach(input=>input.addEventListener('change',handlePriceImageFile));
+ holder.querySelectorAll('[data-price-remove]').forEach(button=>button.addEventListener('click',handlePriceImageRemove));
+}
+async function handlePriceImageFile(event){
+ const input=event.currentTarget,idx=Number(input.dataset.priceFile);
+ const price=site?.prices?.[idx],file=input.files?.[0];
+ if(!price||!file)return;
+ if(busy){toast('Дождись окончания предыдущей операции',true);input.value='';return;}
+ if(!['image/png','image/jpeg','image/webp'].includes(file.type)){toast('Выбери PNG, JPG или WebP',true);input.value='';return;}
+ if(file.size>15*1024*1024){toast('Изображение не должно быть больше 15 МБ',true);input.value='';return;}
+ setBusy(true);
+ const thumb=input.closest('.price-row')?.querySelector('.price-thumb');
+ const url=URL.createObjectURL(file);
+ if(thumb){
+   thumb.textContent='';
+   const image=document.createElement('img');image.src=url;image.alt='Предпросмотр загружаемого изображения';
+   thumb.append(image);
+ }
+ try{
+   const path=await uploadImage(file);
+   price.image=path;
+   setDirty();
+   renderPrices();
+   toast('Картинка загружена! Нажми «Сохранить на GitHub», чтобы она появилась в прайсе.');
+ }catch(error){
+   renderPrices();
+   toast(error.message||'Ошибка загрузки картинки',true);
+ }finally{
+   URL.revokeObjectURL(url);
+   setBusy(false);
+ }
+}
+function handlePriceImageRemove(event){
+ if(busy){toast('Подожди окончания загрузки',true);return;}
+ const idx=Number(event.currentTarget.dataset.priceRemove);
+ if(!site?.prices?.[idx])return;
+ delete site.prices[idx].image;
+ setDirty();
+ renderPrices();
+ toast('Картинка убрана из карточки. Нажми «Сохранить на GitHub».');
+}
 $('acceptingToggle').addEventListener('change',e=>{if(!site)return;site.accepting=e.target.checked;$('acceptingText').textContent=site.accepting?'Открыт':'Закрыт';setDirty()});
 async function saveSite(){if(busy||!site)return;for(const p of site.prices){if(!Number.isFinite(Number(p.price))||Number(p.price)<0)throw Error('В прайсе есть некорректная цена')}setBusy(true);try{let result;if(mode==='worker'){result=await request('site','PUT',{site,sha:siteSha})}else{result=await request('contents/data/site.json','PUT',{message:'Cozy Studio: обновить портфолио, прайс и настройки',content:toBase64(JSON.stringify(site,null,2)+'\n'),sha:siteSha,branch:BRANCH})}siteSha=result.sha||result.content?.sha||siteSha;savedSnapshot=JSON.stringify(site);setDirty(false);toast('Изменения сохранены в GitHub! Через несколько минут сайт обновится.')}catch(e){toast(e.message,true)}finally{setBusy(false)}}
 $('saveButton').addEventListener('click',()=>saveSite().catch(e=>toast(e.message,true)));
