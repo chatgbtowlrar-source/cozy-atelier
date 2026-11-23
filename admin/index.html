@@ -8,8 +8,8 @@
 <link rel="icon" href="../favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="studio.css?v=1.0">
-<script defer src="studio.js?v=1.0"></script>
+<link rel="stylesheet" href="studio.css?v=1.1">
+<script defer src="studio.js?v=1.1"></script>
 </head>
 <body>
 <div class="ambient" aria-hidden="true"></div>
@@ -60,7 +60,7 @@
         </div>
         <div class="toolbar"><label class="search-box"><span>⌕</span><input type="search" id="workSearch" placeholder="Найти работу по названию"></label><span id="portfolioHint" class="micro">Все работы</span></div><div id="workList" class="works-grid"></div>
       </section>
-      <section data-panel="prices" class="tab-panel" hidden><div class="section-intro"><div><span class="overline">УСЛУГИ И СТОИМОСТЬ</span><h2>Твой <i>прайс</i></h2><p>Меняй цены, которые видят посетители. Суммы указаны в рублях, «от».</p></div><a class="small-link" href="../prices.html" target="_blank" rel="noopener">Открыть прайс ↗</a></div><div id="priceList" class="price-list"></div></section>
+      <section data-panel="prices" class="tab-panel" hidden><div class="section-intro"><div><span class="overline">УСЛУГИ И СТОИМОСТЬ</span><h2>Твой <i>прайс</i></h2><p>Меняй цены и добавляй изображение к каждой услуге. После публикации картинка появится в карточке прайса.</p></div><a class="small-link" href="../prices.html" target="_blank" rel="noopener">Открыть прайс ↗</a></div><div id="priceList" class="price-list"></div></section>
       <section data-panel="settings" class="tab-panel" hidden><div class="section-intro"><div><span class="overline">УПРАВЛЕНИЕ СТУДИЕЙ</span><h2>Настройки <i>ателье</i></h2><p>Изменения применяются к публичному сайту после сохранения и публикации GitHub Pages.</p></div></div><div class="setting-card"><div><h3>Приём новых заказов</h3><p>Статус показывается на главной странице. Выключи, если пока не берёшь новые заказы.</p></div><label class="switch"><input type="checkbox" id="acceptingToggle"><span class="switch-track"></span><span id="acceptingText">Открыт</span></label></div><div class="setting-card"><div><h3>Где сохраняются изменения?</h3><p>В публичном репозитории GitHub. Админка создаёт коммиты в <code>data/site.json</code> и <code>assets/portfolio/</code>. Сайт обновляется после завершения публикации Pages.</p><a class="small-link" href="https://github.com/chatgbtowlrar-source/cozy-atelier" target="_blank" rel="noopener">Открыть репозиторий ↗</a></div></div></section>
     </div>
     <footer class="workspace-footer"><span>Cozy Studio · личная панель художника</span><span id="footerStatus">Ожидание изменений</span></footer>
