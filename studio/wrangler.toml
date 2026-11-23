@@ -1,0 +1,11 @@
+name = "cozy-atelier-studio"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+GH_OWNER = "chatgbtowlrar-source"
+GH_REPO = "cozy-atelier"
+SITE_URL = "https://chatgbtowlrar-source.github.io/cozy-atelier/admin/"
+# Credentials must be configured as Cloudflare Secrets, NEVER here:
+# GH_CLIENT_ID, GH_CLIENT_SECRET, SESSION_SECRET
