@@ -1,6 +1,30 @@
 {
   "portfolio": [
     {
+      "id": "work-1795400192866-1563d",
+      "title": "днд пати",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795400191099-343287b0.webp",
+      "published": true
+    },
+    {
+      "id": "work-1795400175044-3a6a5",
+      "title": "крыыыс",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795400172395-58497d1.webp",
+      "published": true
+    },
+    {
+      "id": "work-1795399979074-33756",
+      "title": "паки 2025-2026",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795399976766-81dedf78.webp",
+      "published": true
+    },
+    {
       "id": "work-1795399564111-eebb2",
       "title": "5 ночей додепа",
       "description": "",
