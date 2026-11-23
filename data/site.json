@@ -1,6 +1,14 @@
 {
   "portfolio": [
     {
+      "id": "work-1795399337182-4d2f2",
+      "title": "беспощадный конкурс художников sc",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795399334919-c4143a44.webp",
+      "published": true
+    },
+    {
       "id": "work-1795399275692-0241a",
       "title": "лого w",
       "description": "",
