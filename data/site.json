@@ -1,6 +1,14 @@
 {
   "portfolio": [
     {
+      "id": "work-1795399275692-0241a",
+      "title": "лого w",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795399273352-fdf3ae2e.webp",
+      "published": true
+    },
+    {
       "id": "work-1795399186827-fe716",
       "title": "Happy birthday my overfox",
       "description": "",
