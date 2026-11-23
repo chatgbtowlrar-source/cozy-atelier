@@ -19,7 +19,8 @@
     {
       "id": "pack",
       "name": "Набор из 5 стикеров",
-      "price": 1800
+      "price": 1800,
+      "image": "assets/portfolio/1795398781665-bf43e547.webp"
     },
     {
       "id": "bust",
