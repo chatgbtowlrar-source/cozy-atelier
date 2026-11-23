@@ -1,6 +1,22 @@
 {
   "portfolio": [
     {
+      "id": "work-1795400298524-8f294",
+      "title": "shark стикеры",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795400296467-8fb3e67e.webp",
+      "published": true
+    },
+    {
+      "id": "work-1795400250408-49bfa",
+      "title": "флафенские простинькие стикеры",
+      "description": "",
+      "category": "sticker",
+      "image": "assets/portfolio/1795400248359-17eeb0e3.webp",
+      "published": true
+    },
+    {
       "id": "work-1795400192866-1563d",
       "title": "днд пати",
       "description": "",
