@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#142b22">
+<meta http-equiv="Referrer-Policy" content="no-referrer">
+<title>Cozy Studio — управление сайтом</title>
+<link rel="icon" href="../favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="studio.css?v=1.0">
+<script defer src="studio.js?v=1.0"></script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div id="loginView" class="login-wrap">
+  <section class="login-card" aria-labelledby="loginTitle">
+    <a href="../index.html" class="wordmark"><span class="mark">✦</span> Cozy <em>Studio</em></a>
+    <div class="login-header"><span class="overline">ЛИЧНОЕ АТЕЛЬЕ · УПРАВЛЕНИЕ</span><h1 id="loginTitle">Здесь рождаются<br><i>новые истории.</i></h1>
+      <p>Управляй портфолио, ценами и приёмом заказов. Сохранение создаёт настоящий коммит в GitHub — сайт обновится после публикации Pages.</p>
+    </div>
+    <div id="loginMessage" class="notice" role="status"></div>
+    <div class="login-mode">
+      <label for="workerUrl">Адрес защищённого сервера авторизации</label>
+      <div class="connect-field"><input id="workerUrl" type="url" inputmode="url" spellcheck="false" autocomplete="url" placeholder="https://cozy-atelier-studio.ваш-аккаунт.workers.dev"><button type="button" class="subtle" id="saveWorker">Запомнить</button></div>
+      <button class="primary wide" id="oauthLogin" type="button">Войти через GitHub <span>↗</span></button>
+      <p class="helper">Без настроенного Cloudflare Worker вход через GitHub недоступен. <a href="../studio/README.md" target="_blank" rel="noopener noreferrer">Инструкция по настройке</a></p>
+    </div>
+    <details class="quick-login"><summary>Быстрый вход без сервера — токен GitHub <span>⌄</span></summary>
+      <p>Для немедленной работы можно использовать <strong>fine-grained token</strong> с доступом только к <code>cozy-atelier</code> и разрешением Contents → Read and write. Вводи его <strong>только на своём сайте</strong>, не присылай в чат. Токен хранится исключительно в оперативной памяти открытой вкладки и исчезает при перезагрузке.</p>
+      <label for="tokenInput">GitHub fine-grained token</label><div class="connect-field"><input id="tokenInput" type="password" autocomplete="off" placeholder="github_pat_…"><button class="subtle" id="quickLogin" type="button">Проверить</button></div>
+      <a class="small-link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Создать ограниченный токен на GitHub ↗</a>
+    </details>
+    <div class="login-bottom"><span><span class="tiny-dot"></span> Доступ имеют только владельцы репозитория</span><a href="../index.html">На сайт ↗</a></div>
+  </section>
+</div>
+<div id="appView" class="app-shell" hidden>
+  <aside class="sidebar">
+    <div class="side-top"><a href="../index.html" class="wordmark"><span class="mark">✦</span> Cozy <em>Studio</em></a><div class="side-meta">РАБОЧЕЕ ПРОСТРАНСТВО</div></div>
+    <nav class="nav" aria-label="Разделы админки">
+      <button class="nav-item active" data-tab="overview"><span class="nav-symbol">✧</span> Обзор</button>
+      <button class="nav-item" data-tab="portfolio"><span class="nav-symbol">▧</span> Портфолио</button>
+      <button class="nav-item" data-tab="prices"><span class="nav-symbol">₽</span> Прайс</button>
+      <button class="nav-item" data-tab="settings"><span class="nav-symbol">☷</span> Настройки</button>
+    </nav>
+    <div class="side-footer"><div class="repo-line"><span class="tiny-dot"></span><span>GitHub · <strong>main</strong></span></div><span id="accountLabel">Авторизовано</span><a href="../index.html">Открыть публичный сайт ↗</a></div>
+  </aside>
+  <main class="workspace">
+    <header class="workspace-top"><div><span class="overline">COZY ATELIER / ADMIN</span><h1 id="sectionTitle">Обзор студии</h1></div><div class="top-buttons"><span id="dirtyLabel" class="dirty-label">Все изменения сохранены</span><button class="ghost" id="logoutButton">Выйти</button><button class="primary" id="saveButton">Сохранить на GitHub <span>↗</span></button></div></header>
+    <div class="workspace-body">
+      <section data-panel="overview" class="tab-panel"><div class="welcome-panel"><div><span class="overline">ДОБРО ПОЖАЛОВАТЬ ДОМОЙ</span><h2>Маленькая студия,<br><i>большие идеи.</i></h2><p>Следи за работами, обновляй цены и публикуй изменения без ручного редактирования JSON.</p><button class="text-action" data-jump="portfolio" type="button">Добавить новую работу ↗</button></div><img src="../assets/cozy-documents.webp" alt="Кози с папкой эскизов"></div>
+        <div class="stat-grid"><article class="stat"><span>Работы в портфолио</span><strong id="worksCount">0</strong><small>Всего добавлено</small></article><article class="stat"><span>Опубликовано</span><strong id="publishedCount">0</strong><small>Доступны посетителям</small></article><article class="stat"><span>Позиций прайса</span><strong id="pricesCount">0</strong><small>Цены в рублях</small></article></div>
+        <div class="overview-links"><a target="_blank" rel="noopener" href="../portfolio.html">Проверить портфолио ↗</a><a target="_blank" rel="noopener" href="../prices.html">Посмотреть прайс ↗</a><a target="_blank" rel="noopener" href="https://github.com/chatgbtowlrar-source/cozy-atelier/commits/main/">История публикаций ↗</a></div>
+      </section>
+      <section data-panel="portfolio" class="tab-panel" hidden>
+        <div class="section-intro"><div><span class="overline">КАТАЛОГ РАБОТ</span><h2>Моё <i>портфолио</i></h2><p>Добавляй иллюстрации, выбирай категории и управляй публикацией.</p></div><button class="primary" id="newWorkButton" type="button">+ Добавить работу</button></div>
+        <div id="workEditor" class="editor-card" hidden><div class="editor-head"><h3 id="editorHeading">Новая работа</h3><button class="icon-button" id="closeWorkEditor" type="button" aria-label="Закрыть форму">×</button></div>
+          <form id="workForm"><div class="editor-grid"><div class="upload-side"><label class="drop-zone" for="workFile"><img id="workImagePreview" alt="Предпросмотр работы" hidden><span id="uploadPlaceholder"><span class="upload-icon">↥</span><strong>Выбрать изображение</strong><small>JPG, PNG или WebP · до 15 МБ</small></span></label><input accept="image/png,image/jpeg,image/webp" type="file" id="workFile" hidden><p class="helper">Изображение автоматически уменьшается и преобразуется в WebP перед отправкой на GitHub.</p></div>
+            <div class="editor-fields"><label>Название <input required maxlength="100" id="workTitle" placeholder="Например: Осенний портрет"></label><label>Категория<select id="workCategory"><option value="art">Иллюстрация</option><option value="sticker">Стикер</option><option value="character">Дизайн персонажа</option></select></label><label>Описание <textarea maxlength="500" rows="4" id="workDescription" placeholder="Пара слов о рисунке, технике или идее"></textarea></label><label class="check-row"><input type="checkbox" id="workPublished" checked><span>Показывать работу в портфолио</span></label><div class="editor-actions"><button class="primary" type="submit">Добавить в каталог</button><button class="ghost" type="button" id="cancelWorkEditor">Отмена</button></div></div></div></form>
+        </div>
+        <div class="toolbar"><label class="search-box"><span>⌕</span><input type="search" id="workSearch" placeholder="Найти работу по названию"></label><span id="portfolioHint" class="micro">Все работы</span></div><div id="workList" class="works-grid"></div>
+      </section>
+      <section data-panel="prices" class="tab-panel" hidden><div class="section-intro"><div><span class="overline">УСЛУГИ И СТОИМОСТЬ</span><h2>Твой <i>прайс</i></h2><p>Меняй цены, которые видят посетители. Суммы указаны в рублях, «от».</p></div><a class="small-link" href="../prices.html" target="_blank" rel="noopener">Открыть прайс ↗</a></div><div id="priceList" class="price-list"></div></section>
+      <section data-panel="settings" class="tab-panel" hidden><div class="section-intro"><div><span class="overline">УПРАВЛЕНИЕ СТУДИЕЙ</span><h2>Настройки <i>ателье</i></h2><p>Изменения применяются к публичному сайту после сохранения и публикации GitHub Pages.</p></div></div><div class="setting-card"><div><h3>Приём новых заказов</h3><p>Статус показывается на главной странице. Выключи, если пока не берёшь новые заказы.</p></div><label class="switch"><input type="checkbox" id="acceptingToggle"><span class="switch-track"></span><span id="acceptingText">Открыт</span></label></div><div class="setting-card"><div><h3>Где сохраняются изменения?</h3><p>В публичном репозитории GitHub. Админка создаёт коммиты в <code>data/site.json</code> и <code>assets/portfolio/</code>. Сайт обновляется после завершения публикации Pages.</p><a class="small-link" href="https://github.com/chatgbtowlrar-source/cozy-atelier" target="_blank" rel="noopener">Открыть репозиторий ↗</a></div></div></section>
+    </div>
+    <footer class="workspace-footer"><span>Cozy Studio · личная панель художника</span><span id="footerStatus">Ожидание изменений</span></footer>
+  </main>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="modal" class="modal" hidden><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalHeading"><h2 id="modalHeading">Удалить работу?</h2><p id="modalText">Эта работа исчезнет из портфолио после сохранения изменений.</p><div class="modal-actions"><button id="modalCancel" class="ghost" type="button">Отмена</button><button id="modalConfirm" class="danger" type="button">Удалить</button></div></div></div>
+</body></html>
