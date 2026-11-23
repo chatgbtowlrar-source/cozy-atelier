@@ -25,7 +25,8 @@
     {
       "id": "bust",
       "name": "Бюст персонажа",
-      "price": 1200
+      "price": 1200,
+      "image": "assets/portfolio/1795398791857-dc46c821.webp"
     },
     {
       "id": "waist",
