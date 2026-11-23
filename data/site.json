@@ -1,6 +1,14 @@
 {
   "portfolio": [
     {
+      "id": "work-1795399514553-ae47a",
+      "title": "3 формы фенька",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795399512292-cab5c8c.webp",
+      "published": true
+    },
+    {
       "id": "work-1795399436754-9bddf",
       "title": "wolfred обложка на канал",
       "description": "",
