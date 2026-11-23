@@ -1,6 +1,14 @@
 {
   "portfolio": [
     {
+      "id": "work-1795399564111-eebb2",
+      "title": "5 ночей додепа",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795399560270-d94e27c8.webp",
+      "published": true
+    },
+    {
       "id": "work-1795399514553-ae47a",
       "title": "3 формы фенька",
       "description": "",
