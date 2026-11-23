@@ -31,22 +31,26 @@
     {
       "id": "waist",
       "name": "Персонаж по пояс",
-      "price": 1550
+      "price": 1550,
+      "image": "assets/portfolio/1795398830273-2496c183.webp"
     },
     {
       "id": "full",
       "name": "Персонаж в полный рост",
-      "price": 2500
+      "price": 2500,
+      "image": "assets/portfolio/1795398895864-33a240d9.webp"
     },
     {
       "id": "design",
       "name": "Дизайн персонажа",
-      "price": 3000
+      "price": 3000,
+      "image": "assets/portfolio/1795398957722-4828e82c.webp"
     },
     {
       "id": "scene",
       "name": "Сюжетная иллюстрация",
-      "price": 3500
+      "price": 3500,
+      "image": "assets/portfolio/1795398978363-aa46b101.webp"
     }
   ],
   "accepting": true
