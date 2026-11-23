@@ -13,7 +13,8 @@
     {
       "id": "sticker",
       "name": "Один стикер",
-      "price": 400
+      "price": 400,
+      "image": "assets/portfolio/1795398738309-65b10991.webp"
     },
     {
       "id": "pack",
