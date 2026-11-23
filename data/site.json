@@ -1,6 +1,14 @@
 {
   "portfolio": [
     {
+      "id": "work-1795400736543-a96de",
+      "title": "my rival my idol",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795400734513-bbc018b7.webp",
+      "published": true
+    },
+    {
       "id": "work-1795400298524-8f294",
       "title": "shark стикеры",
       "description": "https://t.me/addstickers/NSh4rkPrime",
