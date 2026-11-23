@@ -1,6 +1,14 @@
 {
   "portfolio": [
     {
+      "id": "work-1795399186827-fe716",
+      "title": "Happy birthday my overfox",
+      "description": "",
+      "category": "art",
+      "image": "assets/portfolio/1795399184831-4601aa7a.webp",
+      "published": true
+    },
+    {
       "id": "work-1795397938865-42a02",
       "title": "I'm fucking invincible!",
       "description": "",
